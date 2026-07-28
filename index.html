@@ -64,6 +64,16 @@
   .sheet-body h2{font-size:18px;font-weight:800;color:var(--navy);margin:24px 0 8px}
   .sheet-body p{font-size:16px;line-height:1.75;color:#3a3f47;margin:0 0 14px}
   .sheet-body .lead{font-size:18px;font-weight:700;color:var(--ink)}
+  .elist{list-style:none;margin-top:8px}
+  .elist li{display:flex;align-items:center;gap:12px;padding:15px 4px;border-bottom:1px solid #ece7dd;cursor:pointer}
+  .elist li:active{background:#faf7f1}
+  .elist li .en{font-size:13px;font-weight:900;color:var(--red);width:30px;flex:none;text-align:center}
+  .elist li b{font-size:16px;font-weight:800;color:var(--ink)}
+  .elist li .go{margin-left:auto;color:#b8b0a2;font-size:19px}
+  .eitem{margin-top:12px;padding-left:2px}
+  .eitem ul{list-style:none;padding:0}
+  .eitem li{position:relative;padding:11px 0 11px 24px;font-size:15px;line-height:1.6;color:#3a3f47;border-bottom:1px solid #f2ede4}
+  .eitem li::before{content:"\203a";position:absolute;left:3px;top:11px;color:var(--red);font-weight:900;font-size:16px}
   .loading{position:absolute;inset:0;display:grid;place-items:center;color:#8aa;font-size:15px;z-index:2}
   .hint{position:absolute;left:0;right:0;bottom:96px;z-index:5;text-align:center;color:#fff;font-weight:700;font-size:14px;opacity:.9;animation:bob 1.6s infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -97,7 +107,7 @@
   function handle(){return `<div class="handle"><div class="dot">${logoMini()}</div><b>@ileriparti</b><span class="follow">Takip Et</span></div>`;}
   window.sh=function(){if(navigator.share){navigator.share({title:'İleri Parti',url:location.href}).catch(()=>{});}else{alert('Bağlantı: '+location.href);}};
 
-  let REELS=[];
+  let REELS=[]; let MADDELER={};
   function reelHTML(r,i){
     const cls=TEMA[r.tema]||'b-navy';
     let bg;
@@ -120,6 +130,14 @@
     if(error){ feed.innerHTML='<div class="loading">Bağlantı hatası: '+error.message+'</div>'; return; }
     if(!data || !data.length){ feed.innerHTML='<div class="loading">Henüz içerik eklenmemiş.<br>Panelden reel ekleyin.</div>'; return; }
     REELS=data;
+    // liste tipi reel'ler için maddeleri çek
+    try{
+      const ids=data.filter(r=>r.detay_tur==='liste').map(r=>r.id);
+      if(ids.length){
+        const { data:md } = await sb.from('reel_maddeler').select('*').in('reel_id',ids).order('sira',{ascending:true});
+        MADDELER={}; (md||[]).forEach(m=>{ (MADDELER[m.reel_id]=MADDELER[m.reel_id]||[]).push(m); });
+      }
+    }catch(e){}
     feed.innerHTML=data.map((r,i)=>reelHTML(r,i)).join('');
     // menü
     document.getElementById('menuList').innerHTML=data.map((r,i)=>`<div class="mi" data-goto="${i}"><span class="n">${(i+1<10?'0':'')+(i+1)}</span>${esc(r.eyebrow||r.baslik)}</div>`).join('');
@@ -134,8 +152,29 @@
     document.querySelectorAll('.likeable').forEach(a=>a.onclick=()=>a.classList.toggle('liked'));
     document.querySelectorAll('[data-goto]').forEach(a=>a.onclick=()=>{feed.scrollTo({top:(+a.dataset.goto)*feed.clientHeight,behavior:'smooth'});menu.classList.remove('open');});
     const dv=document.getElementById('detailView'),db=document.getElementById('detailBody'),dt=document.getElementById('detailTitle');
-    document.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{const r=REELS[+b.dataset.i];dt.textContent=(r.baslik||'')+' '+(r.vurgu||'');db.innerHTML='<div class="eyebrow2">'+esc(r.eyebrow||'')+'</div><h1>'+esc(r.baslik||'')+' '+esc(r.vurgu||'')+'</h1>'+(r.detay||'');db.scrollTop=0;dv.classList.add('open');});
-    document.getElementById('detailBack').onclick=()=>dv.classList.remove('open');
+    let listMode=null, listReel=null;
+    function showList(r){
+      listMode='list'; listReel=r; dt.textContent=(r.eyebrow||r.baslik||'');
+      const mad=MADDELER[r.id]||[];
+      const rows=mad.map((m,i)=>'<li data-mi="'+i+'"><span class="en">'+(i+1<10?'0':'')+(i+1)+'</span><b>'+esc(m.baslik)+'</b><span class="go">\u203a</span></li>').join('');
+      db.innerHTML='<div class="eyebrow2">'+esc(r.eyebrow||'')+'</div><h1>'+esc(r.baslik||'')+' '+esc(r.vurgu||'')+'</h1>'+(r.detay?'<p>'+esc(r.detay).replace(/\n/g,'<br>')+'</p>':'')+(mad.length?'<ul class="elist">'+rows+'</ul>':'<p style="color:#999">Henüz madde eklenmemiş.</p>');
+      db.scrollTop=0;
+      db.querySelectorAll('.elist li').forEach(li=>li.onclick=()=>showItem(+li.dataset.mi));
+    }
+    function showItem(i){
+      listMode='item'; const m=(MADDELER[listReel.id]||[])[i];
+      dt.textContent=m.baslik;
+      db.innerHTML='<div class="eyebrow2">'+esc(listReel.eyebrow||'')+'</div><h1>'+esc(m.baslik)+'</h1><div class="eitem">'+(m.icerik||'')+'</div>';
+      db.scrollTop=0;
+    }
+    document.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
+      const r=REELS[+b.dataset.i];
+      if(r.detay_tur==='liste'){ showList(r); dv.classList.add('open'); return; }
+      listMode=null; dt.textContent=(r.baslik||'')+' '+(r.vurgu||'');
+      db.innerHTML='<div class="eyebrow2">'+esc(r.eyebrow||'')+'</div><h1>'+esc(r.baslik||'')+' '+esc(r.vurgu||'')+'</h1>'+(r.detay||'');
+      db.scrollTop=0; dv.classList.add('open');
+    });
+    document.getElementById('detailBack').onclick=()=>{ if(listMode==='item'){ showList(listReel); } else { dv.classList.remove('open'); listMode=null; } };
   }
   document.getElementById('menuBtn').onclick=()=>menu.classList.add('open');
   document.getElementById('menuClose').onclick=()=>menu.classList.remove('open');
