@@ -74,6 +74,38 @@
   .eitem ul{list-style:none;padding:0}
   .eitem li{position:relative;padding:11px 0 11px 24px;font-size:15px;line-height:1.6;color:#3a3f47;border-bottom:1px solid #f2ede4}
   .eitem li::before{content:"\203a";position:absolute;left:3px;top:11px;color:var(--red);font-weight:900;font-size:16px}
+  .badge81{display:inline-block;background:var(--red);color:#fff;font-weight:900;font-size:15px;letter-spacing:.04em;padding:7px 15px;border-radius:9px;margin-bottom:12px;box-shadow:0 3px 12px rgba(225,29,42,.4)}
+  .sky{position:absolute;left:0;right:0;bottom:0;height:38%;z-index:0;opacity:.9}
+  .sky .b{position:absolute;bottom:0;background:rgba(0,0,0,.28);border-radius:4px 4px 0 0}
+  .sys-intro{font-size:14px;color:#666;line-height:1.5;margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chip{background:#fff;border:1.5px solid #ddd6ca;color:#444;font-weight:700;font-size:13px;padding:8px 13px;border-radius:20px;cursor:pointer}
+  .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .sys-search{width:100%;border:1.5px solid #ddd6ca;border-radius:11px;padding:12px 14px;font-size:15px;margin-bottom:14px;background:#fff;color:#222}
+  .rpanel{background:#fff;border:1px solid #e6e2da;border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,0,.04)}
+  .rpanel h3{font-size:22px;color:var(--ink);font-weight:900;margin-bottom:6px}
+  .rpanel .badge{display:inline-block;background:var(--navy);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;margin-bottom:12px}
+  .rrow{display:flex;gap:10px;padding:9px 0;border-top:1px solid #f0ece4;font-size:14px}
+  .rrow .l{color:#888;font-weight:700;width:96px;flex:none}.rrow .v{color:#333}
+  .rnote{display:flex;gap:8px;margin-top:12px;font-size:12.5px;color:#777;background:#faf7f1;border-radius:10px;padding:10px 12px;line-height:1.5}
+  .ilgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .ilbtn{background:#fff;border:1.5px solid #e6e2da;border-radius:10px;padding:11px 6px;font-size:13px;font-weight:700;color:#3a3f47;cursor:pointer;text-align:center}
+  .ilbtn.active{background:var(--red);border-color:var(--red);color:#fff}
+  .ttoggle{display:inline-flex;gap:4px;background:#fff;border:1px solid #e6e2da;border-radius:999px;padding:4px;margin-bottom:16px}
+  .ton{background:none;border:none;padding:8px 18px;border-radius:999px;font-weight:800;font-size:14px;color:#666;cursor:pointer}
+  .ton.active{background:var(--navy);color:#fff}
+  .tfilters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tfilters select,.tfilters input{border:1.5px solid #ddd6ca;border-radius:10px;padding:10px 12px;font-size:14px;background:#fff;color:#222;flex:1;min-width:44%}
+  .tlist{display:flex;flex-direction:column;gap:12px}
+  .tcard{background:#fff;border:1px solid #e6e2da;border-radius:14px;padding:15px;box-shadow:0 3px 12px rgba(0,0,0,.04)}
+  .tcard .k{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;margin-bottom:8px}
+  .tcard h4{font-size:17px;color:var(--ink);font-weight:900;margin-bottom:4px}
+  .tcard p{font-size:14px;color:#555;line-height:1.5;margin-bottom:8px}
+  .tcard .meta{font-size:12.5px;color:#888;display:flex;gap:8px;flex-wrap:wrap}.tcard .ile{margin-top:10px;font-size:13px;font-weight:800;color:var(--navy)}
+  .tform{display:flex;flex-direction:column;gap:11px}
+  .tform input,.tform select,.tform textarea{border:1.5px solid #ddd6ca;border-radius:11px;padding:12px 14px;font-size:15px;background:#fff;color:#222;font-family:inherit}
+  .tform button{background:var(--red);color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:800;cursor:pointer}
+  .tnote{display:flex;gap:8px;margin-top:6px;font-size:12.5px;color:#777;background:#faf7f1;border-radius:10px;padding:11px 13px;line-height:1.5}
   .loading{position:absolute;inset:0;display:grid;place-items:center;color:#8aa;font-size:15px;z-index:2}
   .hint{position:absolute;left:0;right:0;bottom:96px;z-index:5;text-align:center;color:#fff;font-weight:700;font-size:14px;opacity:.9;animation:bob 1.6s infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -88,7 +120,7 @@
     <div class="menu-list" id="menuList"></div>
   </div>
   <div class="sheet" id="detailView"><div class="sheet-top"><button class="back" id="detailBack">‹</button><b id="detailTitle">Detay</b></div><div class="sheet-body" id="detailBody"></div></div>
-  <div class="feed" id="feed"><div class="loading" id="loading">Yükleniyor…</div></div>
+  <div class="sheet" id="ihtisasSys"><div class="sheet-top"><button class="back" onclick="closeSheet('ihtisasSys')">‹</button><b>İhtisas Haritası · 81 İl</b></div><div class="sheet-body"><p class="sys-intro">Bir il seç: öne çıkan sektörlerini gör; ihtisas ürününü birlikte belirleyelim.</p><div class="chips" id="bolgeChips"></div><input class="sys-search" id="ilSearch" placeholder="İl ara..."><div class="rpanel" id="rpanel"></div><div class="ilgrid" id="ilgrid"></div></div></div><div class="sheet" id="ticariSys"><div class="sheet-top"><button class="back" onclick="closeSheet('ticariSys')">‹</button><b>Ticari Fırsatlar</b></div><div class="sheet-body"><p class="sys-intro">Firmalar bayi aradığı ürün ve bölgeyi ilan eder; girişimciler filtreleyip iletişime geçer.</p><div class="ttoggle"><button class="ton active" data-v="ara" onclick="tSwitch('ara')">İlanları Gör</button><button class="ton" data-v="ver" onclick="tSwitch('ver')">İlan Ver</button></div><div id="tAra"><div class="tfilters"><select id="tKat"><option value="">Tüm kategoriler</option><option value="Gıda & İçecek">Gıda & İçecek</option><option value="Makine & Sanayi">Makine & Sanayi</option><option value="Mobilya & Dekorasyon">Mobilya & Dekorasyon</option><option value="Tekstil & Giyim">Tekstil & Giyim</option></select><select id="tBol"><option value="">Tüm bölgeler</option><option value="Marmara">Marmara</option><option value="Ege">Ege</option><option value="Akdeniz">Akdeniz</option><option value="İç Anadolu">İç Anadolu</option><option value="Karadeniz">Karadeniz</option><option value="Doğu Anadolu">Doğu Anadolu</option><option value="Güneydoğu Anadolu">Güneydoğu Anadolu</option></select><input id="tSearch" placeholder="Ara..."></div><div class="tlist" id="tList"></div></div><div id="tVer" style="display:none"><div class="tform"><input placeholder="Firma adı"><input placeholder="Yetkili"><input placeholder="İletişim (e-posta / telefon)"><select><option>Kategori seç</option><option value="Gıda & İçecek">Gıda & İçecek</option><option value="Makine & Sanayi">Makine & Sanayi</option><option value="Mobilya & Dekorasyon">Mobilya & Dekorasyon</option><option value="Tekstil & Giyim">Tekstil & Giyim</option></select><textarea placeholder="Ürün / hizmet açıklaması" rows="3"></textarea><select><option>Bayi aranan bölge</option><option value="Marmara">Marmara</option><option value="Ege">Ege</option><option value="Akdeniz">Akdeniz</option><option value="İç Anadolu">İç Anadolu</option><option value="Karadeniz">Karadeniz</option><option value="Doğu Anadolu">Doğu Anadolu</option><option value="Güneydoğu Anadolu">Güneydoğu Anadolu</option></select><input placeholder="Şehir"><button onclick="alert('Önizleme: canlı ilan sistemi ana sitede aktiftir; buradan gönderilenler kaydedilmez.')">İlanı Gönder</button><div class="tnote">Önizleme — canlı ilan kaydı (giriş + fotoğraf) ana sitede aktiftir.</div></div></div></div></div><div class="feed" id="feed"><div class="loading" id="loading">Yükleniyor…</div></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -108,6 +140,41 @@
   window.sh=function(){if(navigator.share){navigator.share({title:'İleri Parti',url:location.href}).catch(()=>{});}else{alert('Bağlantı: '+location.href);}};
 
   let REELS=[]; let MADDELER={};
+  const ILLER=[{"il": "İstanbul", "b": "Marmara", "m": "Sanayi, finans, ticaret ve lojistiğin merkezi."}, {"il": "Bursa", "b": "Marmara", "m": "Otomotiv ve tekstil sanayii güçlü."}, {"il": "Kocaeli", "b": "Marmara", "m": "Ağır sanayi ve petrokimya merkezi."}, {"il": "Balıkesir", "b": "Marmara", "m": "Tarım, hayvancılık ve gıda."}, {"il": "Tekirdağ", "b": "Marmara", "m": "Sanayi ve tarımın bir arada olduğu üretken taban."}, {"il": "Sakarya", "b": "Marmara", "m": "Otomotiv yan sanayi ve tarım."}, {"il": "Çanakkale", "b": "Marmara", "m": "Tarım, gıda ve turizm."}, {"il": "Edirne", "b": "Marmara", "m": "Tarım ve sınır ticareti."}, {"il": "Kırklareli", "b": "Marmara", "m": "Tarım ve sanayi."}, {"il": "Yalova", "b": "Marmara", "m": "Süs bitkiciliği ve turizm."}, {"il": "Bilecik", "b": "Marmara", "m": "Seramik ve mermer."}, {"il": "İzmir", "b": "Ege", "m": "Liman, sanayi, tarım ve ticaret merkezi."}, {"il": "Manisa", "b": "Ege", "m": "Elektronik, tarım ve gıda."}, {"il": "Aydın", "b": "Ege", "m": "Tarım (incir, zeytin) ve jeotermal."}, {"il": "Denizli", "b": "Ege", "m": "Tekstil ve ev tekstili."}, {"il": "Muğla", "b": "Ege", "m": "Turizm ve tarım."}, {"il": "Afyonkarahisar", "b": "Ege", "m": "Mermer, gıda ve termal turizm."}, {"il": "Kütahya", "b": "Ege", "m": "Seramik ve madencilik."}, {"il": "Uşak", "b": "Ege", "m": "Tekstil ve deri."}, {"il": "Antalya", "b": "Akdeniz", "m": "Turizm ve seracılık."}, {"il": "Adana", "b": "Akdeniz", "m": "Tarım ve sanayi."}, {"il": "Mersin", "b": "Akdeniz", "m": "Liman, lojistik ve tarım."}, {"il": "Hatay", "b": "Akdeniz", "m": "Gıda, sanayi ve sınır ticareti."}, {"il": "Kahramanmaraş", "b": "Akdeniz", "m": "Tekstil ve gıda."}, {"il": "Isparta", "b": "Akdeniz", "m": "Gül, kozmetik ve tarım."}, {"il": "Burdur", "b": "Akdeniz", "m": "Tarım, hayvancılık ve mermer."}, {"il": "Osmaniye", "b": "Akdeniz", "m": "Tarım ve sanayi."}, {"il": "Ankara", "b": "İç Anadolu", "m": "Başkent; savunma, teknoloji ve sanayi."}, {"il": "Konya", "b": "İç Anadolu", "m": "Tarım, gıda ve makine sanayii."}, {"il": "Kayseri", "b": "İç Anadolu", "m": "Mobilya ve sanayi."}, {"il": "Eskişehir", "b": "İç Anadolu", "m": "Sanayi, ulaşım araçları ve üniversite."}, {"il": "Sivas", "b": "İç Anadolu", "m": "Sanayi, madencilik ve tarım."}, {"il": "Yozgat", "b": "İç Anadolu", "m": "Tarım ve hayvancılık."}, {"il": "Aksaray", "b": "İç Anadolu", "m": "Otomotiv yan sanayi ve tarım."}, {"il": "Karaman", "b": "İç Anadolu", "m": "Gıda ve tarım."}, {"il": "Kırıkkale", "b": "İç Anadolu", "m": "Savunma ve makine sanayii."}, {"il": "Kırşehir", "b": "İç Anadolu", "m": "Tarım ve madencilik."}, {"il": "Nevşehir", "b": "İç Anadolu", "m": "Turizm ve tarım."}, {"il": "Niğde", "b": "İç Anadolu", "m": "Tarım ve madencilik."}, {"il": "Çankırı", "b": "İç Anadolu", "m": "Tarım ve madencilik (tuz)."}, {"il": "Samsun", "b": "Karadeniz", "m": "Liman, tarım ve sanayi."}, {"il": "Trabzon", "b": "Karadeniz", "m": "Liman, fındık ve turizm."}, {"il": "Ordu", "b": "Karadeniz", "m": "Fındık ve tarım."}, {"il": "Rize", "b": "Karadeniz", "m": "Çay ve tarım."}, {"il": "Giresun", "b": "Karadeniz", "m": "Fındık ve tarım."}, {"il": "Tokat", "b": "Karadeniz", "m": "Tarım ve gıda."}, {"il": "Amasya", "b": "Karadeniz", "m": "Tarım (elma) ve gıda."}, {"il": "Çorum", "b": "Karadeniz", "m": "Gıda (leblebi) ve makine sanayii."}, {"il": "Kastamonu", "b": "Karadeniz", "m": "Orman ürünleri ve tarım."}, {"il": "Sinop", "b": "Karadeniz", "m": "Balıkçılık, orman ve turizm."}, {"il": "Zonguldak", "b": "Karadeniz", "m": "Madencilik (kömür) ve sanayi."}, {"il": "Karabük", "b": "Karadeniz", "m": "Demir-çelik sanayii."}, {"il": "Bartın", "b": "Karadeniz", "m": "Tarım, orman ve liman."}, {"il": "Düzce", "b": "Karadeniz", "m": "Tarım ve sanayi."}, {"il": "Bolu", "b": "Karadeniz", "m": "Turizm, tarım ve orman."}, {"il": "Gümüşhane", "b": "Karadeniz", "m": "Madencilik ve tarım."}, {"il": "Bayburt", "b": "Karadeniz", "m": "Tarım ve hayvancılık."}, {"il": "Artvin", "b": "Karadeniz", "m": "Orman, madencilik ve turizm."}, {"il": "Erzurum", "b": "Doğu Anadolu", "m": "Hayvancılık, tarım ve kış turizmi."}, {"il": "Malatya", "b": "Doğu Anadolu", "m": "Kayısı ve tarım."}, {"il": "Elazığ", "b": "Doğu Anadolu", "m": "Tarım, madencilik ve enerji."}, {"il": "Van", "b": "Doğu Anadolu", "m": "Hayvancılık, tarım ve sınır ticareti."}, {"il": "Ağrı", "b": "Doğu Anadolu", "m": "Hayvancılık ve sınır ticareti."}, {"il": "Kars", "b": "Doğu Anadolu", "m": "Hayvancılık ve süt ürünleri (kaşar)."}, {"il": "Erzincan", "b": "Doğu Anadolu", "m": "Tarım, madencilik ve hayvancılık."}, {"il": "Muş", "b": "Doğu Anadolu", "m": "Tarım ve hayvancılık."}, {"il": "Bitlis", "b": "Doğu Anadolu", "m": "Tarım ve hayvancılık."}, {"il": "Bingöl", "b": "Doğu Anadolu", "m": "Tarım, hayvancılık ve arıcılık."}, {"il": "Tunceli", "b": "Doğu Anadolu", "m": "Tarım, hayvancılık ve arıcılık."}, {"il": "Hakkari", "b": "Doğu Anadolu", "m": "Hayvancılık ve sınır ticareti."}, {"il": "Iğdır", "b": "Doğu Anadolu", "m": "Tarım (kayısı) ve sınır ticareti."}, {"il": "Ardahan", "b": "Doğu Anadolu", "m": "Hayvancılık ve süt ürünleri."}, {"il": "Gaziantep", "b": "Güneydoğu Anadolu", "m": "Gıda, tekstil ve sanayi merkezi."}, {"il": "Şanlıurfa", "b": "Güneydoğu Anadolu", "m": "Tarım (GAP) ve gıda."}, {"il": "Diyarbakır", "b": "Güneydoğu Anadolu", "m": "Tarım, ticaret ve gıda."}, {"il": "Mardin", "b": "Güneydoğu Anadolu", "m": "Tarım, turizm ve sınır ticareti."}, {"il": "Batman", "b": "Güneydoğu Anadolu", "m": "Petrol ve tarım."}, {"il": "Adıyaman", "b": "Güneydoğu Anadolu", "m": "Tarım ve tekstil."}, {"il": "Siirt", "b": "Güneydoğu Anadolu", "m": "Tarım (fıstık) ve hayvancılık."}, {"il": "Şırnak", "b": "Güneydoğu Anadolu", "m": "Sınır ticareti ve madencilik."}, {"il": "Kilis", "b": "Güneydoğu Anadolu", "m": "Tarım (zeytin) ve sınır ticareti."}];
+  const TICARI=[{"firma": "Anadolu Ev Tekstili", "kat": "Tekstil & Giyim", "urun": "Nevresim, havlu ve ev tekstili ürünleri.", "bolge": "Ege", "sehir": "Denizli", "ilce": "", "ile": "info@ornek.com", "foto": [], "yeni": false}, {"firma": "Bereket Gıda", "kat": "Gıda & İçecek", "urun": "Kuru gıda, baklagil ve ambalajlı ürünler.", "bolge": "İç Anadolu", "sehir": "Konya", "ilce": "", "ile": "0312 000 00 00", "foto": [], "yeni": false}, {"firma": "Marmara Mobilya", "kat": "Mobilya & Dekorasyon", "urun": "Modüler mobilya ve mutfak dolapları.", "bolge": "Marmara", "sehir": "İstanbul", "ilce": "", "ile": "satis@ornek.com", "foto": [], "yeni": false}, {"firma": "Güneş Enerji Sistemleri", "kat": "Makine & Sanayi", "urun": "Güneş paneli ve kurulum ekipmanları.", "bolge": "Akdeniz", "sehir": "Antalya", "ilce": "", "ile": "info@ornek.com", "foto": [], "yeni": false}, {"firma": "Karadeniz Doğal Ürünler", "kat": "Gıda & İçecek", "urun": "Çay, fındık ve bal ürünleri.", "bolge": "Karadeniz", "sehir": "Rize", "ilce": "", "ile": "0464 000 00 00", "foto": [], "yeni": false}, {"firma": "Öz Kayseri Mobilya", "kat": "Mobilya & Dekorasyon", "urun": "Yatak odası ve oturma grupları.", "bolge": "İç Anadolu", "sehir": "Kayseri", "ilce": "", "ile": "info@ornek.com", "foto": [], "yeni": false}];
+  const BOLGELER=["Tümü", "Marmara", "Ege", "Akdeniz", "İç Anadolu", "Karadeniz", "Doğu Anadolu", "Güneydoğu Anadolu"];
+
+  const CHEV_S=`<svg viewBox="0 0 200 400" preserveAspectRatio="none"><g fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"><path d="M30 60 120 200 30 340"/><path d="M90 60 180 200 90 340"/><path d="M150 60 240 200 150 340"/></g></svg>`;
+  window.openSheet=function(id){document.getElementById(id).classList.add('open');};
+  window.closeSheet=function(id){document.getElementById(id).classList.remove('open');};
+  function ihtisasReelHTML(){return '<section class="reel b-koyu"><div class="sky" id="sky"></div><div class="scrim"></div><div class="content">'+handle()+'<span class="eyebrow">İhtisas Şehirciliği</span><span class="badge81">81 İL · 81 UZMANLIK</span><h1>Her şehir<br>bir üründe<br><span class="r">dünya markası.</span></h1><div class="sub">İlini seç, öne çıkan sektörlerini ve ihtisas modelini gör.</div><button class="detail-btn" onclick="openSheet(\'ihtisasSys\')">81 İl Haritasını Aç →</button></div>'+rail()+'</section>';}
+  function ticariReelHTML(){return '<section class="reel b-koyu"><div class="chevrons">'+CHEV_S+'</div><div class="scrim"></div><div class="content">'+handle()+'<span class="eyebrow">Ticari Fırsatlar</span><h1>Üreticiyi<br>pazarla <span class="r">buluşturuyoruz.</span></h1><div class="sub">İlan ara ya da ilan ver; bölge ve kategoriye göre seçim yaparak ilerle.</div><button class="detail-btn" onclick="openSheet(\'ticariSys\')">Fırsat Sistemine Gir →</button></div>'+rail()+'</section>';}
+  window.tSwitch=function(v){document.getElementById('tAra').style.display=v==='ara'?'block':'none';document.getElementById('tVer').style.display=v==='ver'?'block':'none';document.querySelectorAll('.ton').forEach(function(b){b.classList.toggle('active',b.dataset.v===v);});};
+  function initSystems(){
+    // şehir silüeti
+    var sky=document.getElementById('sky');
+    if(sky && !sky.children.length){let hh=[35,60,48,80,55,90,42,70,58,100,50,75,40,65],x=0;hh.forEach(function(v){var w=100/hh.length,b=document.createElement('div');b.className='b';b.style.left=x+'%';b.style.width=(w-1)+'%';b.style.height=v+'%';sky.appendChild(b);x+=w;});}
+    // 81 il
+    (function(){
+      var grid=document.getElementById('ilgrid'),pan=document.getElementById('rpanel'),search=document.getElementById('ilSearch'),chips=document.getElementById('bolgeChips');
+      if(!grid||chips.children.length) return;
+      var aktifBolge='Tümü',secili=null;
+      function trL(s){return (s||'').toLocaleLowerCase('tr');}
+      BOLGELER.forEach(function(b){var c=document.createElement('span');c.className='chip'+(b==='Tümü'?' on':'');c.textContent=b;c.onclick=function(){aktifBolge=b;[].forEach.call(chips.children,function(x){x.classList.toggle('on',x.textContent===b);});render();};chips.appendChild(c);});
+      function draw(x){secili=x.il;pan.innerHTML='<h3>'+x.il+'</h3><span class="badge">'+x.b+' · taslak</span><div class="rrow"><span class="l">Öne çıkan</span><span class="v">'+x.m+'</span></div><div class="rrow"><span class="l">İhtisas ürünü</span><span class="v" style="color:#999">Birlikte belirlenecek — bu il için öner.</span></div><div class="rnote"><span>'+x.il+' için ihtisas dosyasını hemşehri dernekleri, ticaret odaları ve akademiyle birlikte açıyoruz. Öneri eklemek için partiye katılın.</span></div>';[].forEach.call(grid.children,function(el){el.classList.toggle('active',el.getAttribute('data-il')===x.il);});}
+      function render(){var q=trL(search.value);var list=ILLER.filter(function(x){return (aktifBolge==='Tümü'||x.b===aktifBolge)&&trL(x.il).indexOf(q)>-1;});grid.innerHTML=list.map(function(x){return '<button class="ilbtn'+(x.il===secili?' active':'')+'" data-il="'+x.il+'">'+x.il+'</button>';}).join('');[].forEach.call(grid.children,function(btn){btn.onclick=function(){var f=ILLER.filter(function(y){return y.il===btn.getAttribute('data-il');})[0];draw(f);};});}
+      search.addEventListener('input',render);render();draw(ILLER[0]);
+    })();
+    // ticari
+    (function(){
+      var list=document.getElementById('tList'),fk=document.getElementById('tKat'),fb=document.getElementById('tBol'),fa=document.getElementById('tSearch');
+      if(!list||list.__init) return; list.__init=true;
+      function trL(s){return (s||'').toLocaleLowerCase('tr');}
+      function render(){var q=trL(fa.value);var r=TICARI.filter(function(t){return (!fk.value||t.kat===fk.value)&&(!fb.value||t.bolge===fb.value)&&(trL(t.firma+' '+t.urun+' '+t.sehir).indexOf(q)>-1);});list.innerHTML=r.length?r.map(function(t){return '<div class="tcard"><span class="k">'+t.kat+'</span><h4>'+t.firma+'</h4><p>'+t.urun+'</p><div class="meta"><span>📍 '+t.sehir+'</span><span>'+t.bolge+'</span></div><div class="ile">İletişim: '+t.ile+'</div></div>';}).join(''):'<div class="tnote">Bu filtreye uygun ilan bulunamadı.</div>';}
+      [fk,fb].forEach(function(s){s.onchange=render;});fa.addEventListener('input',render);render();
+    })();
+  }
+
   function reelHTML(r,i){
     const cls=TEMA[r.tema]||'b-navy';
     let bg;
@@ -130,6 +197,7 @@
     if(error){ feed.innerHTML='<div class="loading">Bağlantı hatası: '+error.message+'</div>'; return; }
     if(!data || !data.length){ feed.innerHTML='<div class="loading">Henüz içerik eklenmemiş.<br>Panelden reel ekleyin.</div>'; return; }
     REELS=data;
+    window.__baseN=data.length;
     // liste tipi reel'ler için maddeleri çek
     try{
       const ids=data.filter(r=>r.detay_tur==='liste').map(r=>r.id);
@@ -138,12 +206,15 @@
         MADDELER={}; (md||[]).forEach(m=>{ (MADDELER[m.reel_id]=MADDELER[m.reel_id]||[]).push(m); });
       }
     }catch(e){}
-    feed.innerHTML=data.map((r,i)=>reelHTML(r,i)).join('');
-    // menü
-    document.getElementById('menuList').innerHTML=data.map((r,i)=>`<div class="mi" data-goto="${i}"><span class="n">${(i+1<10?'0':'')+(i+1)}</span>${esc(r.eyebrow||r.baslik)}</div>`).join('');
-    // progress
-    prog.innerHTML=''; data.forEach(()=>prog.appendChild(document.createElement('i')));
-    wire();
+    const baseN=data.length;
+    feed.innerHTML=data.map((r,i)=>reelHTML(r,i)).join('') + ihtisasReelHTML() + ticariReelHTML();
+    // menü (DB reel'ler + 2 sabit sistem)
+    let mi=data.map((r,i)=>({l:r.eyebrow||r.baslik,g:i}));
+    mi.push({l:'İhtisas Şehirciliği',g:baseN}); mi.push({l:'Ticari Fırsatlar',g:baseN+1});
+    document.getElementById('menuList').innerHTML=mi.map((m,i)=>`<div class="mi" data-goto="${m.g}"><span class="n">${(i+1<10?'0':'')+(i+1)}</span>${esc(m.l)}</div>`).join('');
+    // progress (toplam)
+    const total=baseN+2; prog.innerHTML=''; for(let i=0;i<total;i++)prog.appendChild(document.createElement('i'));
+    wire(); initSystems();
   }
   function wire(){
     const bars=[...prog.children];
